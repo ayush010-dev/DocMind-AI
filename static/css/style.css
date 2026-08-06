@@ -1,0 +1,224 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:#f8fafc;
+
+    color:#1e293b;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:40px;
+
+}
+
+.container{
+
+    width:100%;
+
+    max-width:900px;
+
+}
+
+header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+header h1{
+
+    font-size:42px;
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+header p{
+
+    color:#64748b;
+
+    font-size:18px;
+
+}
+
+.upload-section,
+.chat-section,
+#chatBox{
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+}
+
+h2{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+}
+
+input[type=file]{
+
+    width:100%;
+
+    margin-bottom:20px;
+
+    border:2px dashed #cbd5e1;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#f8fafc;
+
+}
+
+textarea{
+
+    width:100%;
+
+    resize:none;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:1px solid #cbd5e1;
+
+    font-size:16px;
+
+    margin-bottom:20px;
+
+}
+
+button{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#1d4ed8;
+
+}
+
+#uploadStatus{
+
+    margin-top:15px;
+
+    color:#16a34a;
+
+    font-weight:bold;
+
+}
+
+.message{
+
+    margin-bottom:20px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+}
+
+.user{
+
+    background:#dbeafe;
+
+}
+
+.ai{
+
+    background:#ecfdf5;
+
+}
+
+.message strong{
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+.hidden{
+    display:none;
+}
+
+.file-card{
+
+    margin-top:20px;
+
+    background:#eff6ff;
+
+    border:1px solid #bfdbfe;
+
+    border-radius:12px;
+
+    padding:15px;
+
+}
+
+.file-info h3{
+
+    color:#1d4ed8;
+
+    margin-bottom:6px;
+
+}
+
+.file-info p{
+
+    color:#475569;
+
+    font-size:14px;
+
+}
+
+button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}

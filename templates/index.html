@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DocMind AI</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>DocMind AI</h1>
+
+            <p>
+                Chat with your documents using Artificial Intelligence
+            </p>
+
+        </header>
+
+        <section class="upload-section">
+
+            <h2>Upload Document</h2>
+
+            <input
+                type="file"
+                id="fileInput">
+
+            <button type="button" id="uploadBtn">
+
+                Upload Document
+
+            </button>
+
+            <p id="uploadStatus"></p>
+
+            <div id="fileCard" class="file-card hidden">
+
+            <div class="file-info">
+
+             <h3 id="fileName"></h3>
+
+              <p id="fileChunks"></p>
+
+    </div>
+
+</div>
+
+        </section>
+
+        <section class="chat-section">
+
+            <h2>Ask Questions</h2>
+
+            <textarea
+
+                id="question"
+
+                rows="4"
+
+                placeholder="Ask anything about your document...">
+
+            </textarea>
+
+            <button type="button" id="sendBtn">
+
+                Send
+
+            </button>
+
+        </section>
+
+        <section id="chatBox">
+
+        </section>
+
+    </div>
+
+<script src="/static/js/script.js"></script>
+
+</body>
+
+</html>
