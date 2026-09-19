@@ -1,94 +1,332 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" ,content="width=device-width, initial-scale=1.0" />
 
     <title>DocMind AI</title>
 
-    <link rel="stylesheet"
-          href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.2" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
 
-</head>
+  <body>
+    <div class="app">
+      <!-- Sidebar -->
 
-<body>
+      <aside class="sidebar">
+        <div class="logo">
+          <h2>
+            <i class="fa-solid fa-brain"></i>
+            DocMind AI
+          </h2>
 
-    <div class="container">
+          <p>Your AI Assistant</p>
+        </div>
 
-        <header>
+        <button class="btn" id="newChatBtn">
+          <i class="fa-solid fa-plus"></i>
+          New Chat
+        </button>
 
-            <h1>DocMind AI</h1>
 
-            <p>
-                Chat with your documents using Artificial Intelligence
-            </p>
 
+        <div class="sidebar-section chats-section">
+          <h4>CHATS</h4>
+
+          <div id="chatHistory">
+            <div class="chat-item active">
+              <div class="chat-title">
+                <i class="fa-regular fa-message"></i>
+                Resume Summary
+              </div>
+
+              <div class="chat-time">Today</div>
+            </div>
+
+            <div class="chat-item">
+              <div class="chat-title">Skills</div>
+
+              <div class="chat-time">Yesterday</div>
+            </div>
+
+            <div class="chat-item">
+              <div class="chat-title">Research Notes</div>
+
+              <div class="chat-time">2 days ago</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main -->
+
+      <main class="main">
+        <!-- Top -->
+        <header class="topbar">
+          <div class="top-left">
+            <div class="doc-icon">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+
+            <div>
+              <span class="small-title"> Active Workspace </span>
+
+              <h3 id="currentDocument">No documents selected</h3>
+            </div>
+          </div>
+
+          <div id="documentList" class="document-list header-document-list">
+            <!-- Uploaded documents will appear here -->
+          </div>
+
+          <div class="top-right">
+            <button class="icon-btn" id="searchBtn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <button class="icon-btn" id="themeBtn">
+              <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="icon-btn" id="settingsBtn">
+              <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <div class="profile" id="profileBtn">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
         </header>
 
-        <section class="upload-section">
+        <!-- Upload Area -->
 
-            <h2>Upload Document</h2>
+        <section id="uploadPanel" class="upload-panel">
+          <div class="upload-box" id="uploadBox">
+            <div class="upload-icon">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
 
-            <input
-                type="file"
-                id="fileInput">
+            <h2 id="uploadTitle">Upload your document</h2>
 
-            <button type="button" id="uploadBtn">
+            <p>Drag & drop your PDF, DOCX, PPTX, TXT or XLSX here</p>
 
-                Upload Document
-
+            <button id="browseBtn">
+              <i class="fa-solid fa-folder-open"></i>
+              Browse Files
             </button>
 
-            <p id="uploadStatus"></p>
+            <small> Maximum file size: 20 MB </small>
+            <p id="uploadError" style="color: #ef4444; margin-top: 15px; font-weight: 500;" class="hidden"></p>
+          </div>
+        </section>
 
-            <div id="fileCard" class="file-card hidden">
+        <!-- Chat -->
 
-            <div class="file-info">
+        <section id="chatBox" class="chat-box">
+          <div id="welcomeScreen" class="welcome">
+            <h2>
+              <i class="fa-solid fa-comments"></i>
+              Welcome to DocMind AI
+            </h2>
 
-             <h3 id="fileName"></h3>
+            <p>Upload a document and start chatting.</p>
+          </div>
+        </section>
 
-              <p id="fileChunks"></p>
+        <!-- Input -->
+        <input type="file" id="fileInput" accept=".pdf,.docx,.pptx,.txt,.xlsx" hidden />
 
+        <div class="chat-input">
+          <button type="button" id="inlineUploadBtn" class="inline-upload-btn" title="Attach Document" onclick="if(document.getElementById('fileInput')) document.getElementById('fileInput').click()">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <textarea
+            id="question"
+            placeholder="Ask anything about your document..."
+          ></textarea>
+
+          <button id="sendBtn">
+            Send
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+        
+        <footer>
+          <div>
+            <p>
+              DocMind AI can make mistakes. Please verify critical information from
+              the original document.
+            </p>
+          </div>
+        </footer>
+      </main>
     </div>
 
-</div>
-
-        </section>
-
-        <section class="chat-section">
-
-            <h2>Ask Questions</h2>
-
-            <textarea
-
-                id="question"
-
-                rows="4"
-
-                placeholder="Ask anything about your document...">
-
-            </textarea>
-
-            <button type="button" id="sendBtn">
-
-                Send
-
-            </button>
-
-        </section>
-
-        <section id="chatBox">
-
-        </section>
-
+    <!-- Modals and Panels -->
+    <!-- Search Panel -->
+    <div id="searchPanel" class="popup-panel hidden">
+      <div class="search-header">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search chats and documents..." autocomplete="off" />
+        <button id="closeSearchBtn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="searchResults" class="search-results">
+        <!-- Results go here -->
+      </div>
     </div>
 
-<script src="/static/js/script.js"></script>
+    <!-- Profile Menu -->
+    <div id="profileMenu" class="popup-panel hidden">
+      <div class="profile-header">
+        <strong>DocMind User</strong>
+        <span>Local Account</span>
+      </div>
+      <div class="profile-options">
+        <button id="myDocsBtn"><i class="fa-solid fa-folder"></i> My Documents</button>
+        <button id="chatHistoryBtn"><i class="fa-solid fa-clock-rotate-left"></i> Chat History</button>
+        <button id="openSettingsFromProfileBtn"><i class="fa-solid fa-gear"></i> Settings</button>
+      </div>
+    </div>
 
-</body>
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Settings</h3>
+          <button id="closeSettingsBtn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="settings-section">
+            <h4>Appearance</h4>
+            <div class="setting-item">
+              <span>Theme</span>
+              <select id="themeSelect">
+                <option value="dark">Dark Mode</option>
+                <option value="light">Light Mode</option>
+              </select>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h4>Chat</h4>
+            <div class="setting-item">
+              <span>Enter to send</span>
+              <label class="switch">
+                <input type="checkbox" id="enterToSendToggle" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span>Show typing indicator</span>
+              <label class="switch">
+                <input type="checkbox" id="typingIndicatorToggle" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- My Documents Modal -->
+    <div id="documentsModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>My Documents</h3>
+          <button id="closeDocsBtn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div id="documentsList" class="documents-list">
+            <!-- Documents go here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intelligence Dashboard Modal -->
+    <div id="intelligenceDashboard" class="modal-overlay hidden">
+      <div class="modal-content dashboard-content">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-brain"></i> Document Intelligence</h3>
+          <button id="closeDashboardBtn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body dashboard-body">
+          <div class="dashboard-top">
+            <div class="dashboard-section overview">
+              <h4>Overview</h4>
+              <p><strong>Filename:</strong> <span id="dashFilename">...</span></p>
+              <p><strong>Status:</strong> Ready</p>
+            </div>
+            <div class="dashboard-section topics">
+              <h4>Key Topics</h4>
+              <div id="dashTopics" class="chips-container">
+                <span class="chip loading">Extracting topics...</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dashboard-section actions">
+            <h4>Quick Actions</h4>
+            <div class="action-buttons">
+              <button class="dash-btn" onclick="handleQuickAction('summary')"><i class="fa-solid fa-file-lines"></i> Summary</button>
+              <button class="dash-btn" onclick="handleQuickAction('viva')"><i class="fa-solid fa-clipboard-question"></i> Viva Questions</button>
+              <button class="dash-btn" onclick="handleQuickAction('5mark')"><i class="fa-solid fa-pen-nib"></i> 5-Mark Questions</button>
+              <button class="dash-btn" onclick="handleQuickAction('mcq')"><i class="fa-solid fa-list-check"></i> Practice Quiz</button>
+            </div>
+          </div>
+
+          <div class="dashboard-section exam-prep">
+            <h4>Exam Preparation</h4>
+            <div class="exam-controls" style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+              <select id="examDifficulty" class="styled-select" style="flex:1;">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              <select id="examCount" class="styled-select" style="flex:1;">
+                <option value="5">5 Questions</option>
+                <option value="10" selected>10 Questions</option>
+                <option value="15">15 Questions</option>
+                <option value="20">20 Questions</option>
+              </select>
+              <button id="generateExamBtn" class="primary-btn" style="flex:1;">Generate</button>
+            </div>
+            
+            <div class="exam-tabs">
+              <div class="tab active" data-tab="viva">Viva</div>
+              <div class="tab" data-tab="5mark">5-Mark Qs</div>
+              <div class="tab" data-tab="mcq">MCQ Quiz</div>
+            </div>
+            
+            <div id="examResults" class="exam-results-container" style="margin-top: 15px; padding: 15px; background: var(--bg-tertiary); border-radius: 8px; max-height: 300px; overflow-y: auto;">
+              <div class="placeholder-text">Select an option and click Generate.</div>
+            </div>
+          </div>
+
+          <div class="dashboard-section document-tools">
+            <h4>Document Tools</h4>
+            <div class="action-buttons">
+              <button class="dash-btn" onclick="toggleFindInDocument()"><i class="fa-solid fa-magnifying-glass"></i> Find in Document</button>
+              <button class="dash-btn" onclick="handleQuickAction('revision')"><i class="fa-solid fa-thumbtack"></i> Revision Notes</button>
+              <button class="dash-btn" onclick="handleQuickAction('important')"><i class="fa-solid fa-star"></i> Important Topics</button>
+              <button class="dash-btn" onclick="handleQuickAction('flashcards')"><i class="fa-solid fa-brain"></i> Flashcards</button>
+            </div>
+            <div id="findInDocumentContainer" class="hidden" style="margin-top: 15px; padding: 15px; background: var(--bg-tertiary); border-radius: 8px;">
+              <div style="display:flex; gap:10px;">
+                <input type="text" id="findInDocumentInput" placeholder="Enter text to search..." style="flex:1; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-primary); color: var(--text-primary);">
+                <button onclick="executeFindInDocument()" class="primary-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+              </div>
+              <div id="findInDocumentResults" style="margin-top:15px; max-height: 250px; overflow-y: auto;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/script.js?v=1.10"></script>
+  </body>
 </html>
